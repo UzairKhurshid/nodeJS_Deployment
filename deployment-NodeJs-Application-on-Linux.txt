@@ -1,0 +1,121 @@
+finding pc ip address
+	open setting > network click on gear icon . ip v4 is your mechine ip	
+	ip of this mechine 192.168.0.78
+
+*********************************************************************************************
+					:software installation:
+install vs code node js robo3t from ubuntu repositery
+install mongodb : (In terminal type commands below) reflink:(https://linuxhint.com/install_mongodb_ubuntu_20_04/)
+	sudo apt update
+	sudo apt upgrade
+	sudo apt install mongodb   :mongodb will be installed automatically on your system
+	to check status of mongodb : sudo systemctl status mongodb
+install github: (in terminal)
+	to install git : sudo apt install git 
+	to check git version : git --version
+	
+install chrome from browser.
+
+**********************************************************************************************
+					:deployment:
+
+Ref URL: (https://medium.com/swlh/how-to-deploy-node-js-to-ubuntu-20-04-in-2020-c5776ac64a20)
+1: install node js latest stable version:
+	cd ~
+	curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
+	sudo bash nodesource_setup.sh
+	sudo apt-get install nodejs
+	sudo apt-get install build-essential
+these commands will install LTS node js in your mechine.
+you can confirm by typing node --version in terminal .
+
+2: Creating a Node JS application
+	cd ~
+	nano app.js
+	
+	Insert the following lines of code:
+	
+	const http = require('http');
+	http.createServer(function (req, res) {
+  	res.writeHead(200, {'Content-Type': 'text/plain'});
+  	res.end('Hello Medium\n');
+	}).listen(8080, 'localhost');
+	console.log('Server running at http://localhost:8080/');
+	
+	save the file and execute it from terminal.
+	node app.js
+	Output
+	Server running at http://localhost:8080/
+	
+3: Install PM2
+	sudo npm install -g pm2
+
+	to start pm2 run this command in terminal.
+	pm2 start app.js
+	
+	Output:
+	[PM2] Spawning PM2 daemon
+	[PM2] PM2 Successfully daemonized
+	[PM2] Starting app.js in fork_mode (1 instance)
+	[PM2] Done.
+	┌──────────┬────┬──────┬──────┬────────┬─────────┬────────┬─────────────┬──────────┐
+	 App name │ id │ mode │ pid  │ status │ restart │ uptime │ memory      │ watching │
+	├──────────┼────┼──────┼──────┼────────┼─────────┼────────┼─────────────┼──────────┤
+	│ app   │ 0  │ fork │ 3524 │ online │ 0       │ 0s     │ 21.566 MB   │ disabled │
+	└──────────┴────┴──────┴──────┴────────┴─────────┴────────┴─────────────┴──────────┘
+ 	Use `pm2 show <id|name>` to get more details about an app
+ 	
+ 	
+4: Set Up Nginx as a Reverse Proxy Server.
+     Ref URL :(https://linuxhint.com/install_nginx_ubuntu/)
+(i): first, update and upgrade your APT.
+ 	a: sudo apt update
+ 	b:sudo apt upgrade
+(ii): Download and Install NGINX.
+ 	a: sudo apt install nginx
+(iii): verify nginx installation.	
+	a: sudo systemctl status nginx
+(iv): Update Firewall Settings.
+	a: sudo ufw allow 'nginx Full'
+(v): Test NGINX Installation in Browser
+	URL= http://YOUR_IP  i:e http://192.168.0.78
+	(you will see a page in browser welcome to NGINC)
+(vi): Test NGINX installation in terminal.
+	a: curl -i 10.0.2.15
+(vII):Configure NGINX Server
+      Now you should configure your NGINX server for it to restart after system reboots. 
+      a: sudo systemctl enable nginx
+(viii): in addition to restarting it, reloading it, starting it, stopping it,and disabling it 
+	sudo systemctl status nginx   => to check status of NGINX	
+	sudo systemctl restart NGINX  => to restart NGINX
+	sudo systemctl reload NGINX   => to reload NGINX
+	sudo systemctl start NGINX    => to start NGINX
+	sudo systemctl stop NGINX     => to stop NGINX
+	sudo systemctl disable NGINX  => to disable NGINX
+	sudo dpkg -l nginx            => to check nginx version
+	
+Uninstalling NGINX Server :
+You can remove NGINX from Ubuntu via the following terminal commands.	
+	sudo apt-get purge NGINX
+	sudo apt-get autoremove
+		
+	
+5:process complete .	
+
+
+
+*********************************************************************************************
+					:Errors:
+if you cant access localhost:port in browser 
+You can check PORT no. is available or not for use
+	example:
+		sudo lsof -i :5000
+		COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
+		node 20152 abc 21u IPv6 195004 0t0 TCP *:http (LISTEN)
+
+		sudo kill -9 20152 (20152 will be the node as given in above example.
+		
+
+
+
+
