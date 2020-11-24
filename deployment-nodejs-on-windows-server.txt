@@ -1,11 +1,11 @@
 Some of the advantages of hosting node.js applications in IIS using the iisnode module as opposed to self-hosting node.exe processes include:
 
 	(i): Process management. The iisnode module takes care of lifetime management of node.exe processes making it simple to improve overall reliability. 
-	You don’t have to implement infrastructure to start, stop, and monitor the processes.
+	You donâ€™t have to implement infrastructure to start, stop, and monitor the processes.
 	
 	(ii): Scalability on multi-core servers. Since node.exe is a single threaded process, it only scales to one CPU core. The iisnode module allows 
 	creation of multiple node.exe processes per application and load balances the HTTP traffic between them, therefore enabling full utilization
-	 of a server’s CPU capacity without requiring additional infrastructure code from an application developer.
+	 of a serverâ€™s CPU capacity without requiring additional infrastructure code from an application developer.
 	
 	(iii): Auto-update. The iisnode module ensures that whenever the node.js application is updated (i.e. the script file has changed), 
 	the node.exe processes are recycled. Ongoing requests are allowed to gracefully finish execution using the old version of the application, w
@@ -45,6 +45,11 @@ Deployment:
 	(i)downlaod iisnode and install it .
 	(ii)turn on windows internet information service from ( turn on / off windows feature ).
 		expand this feature and select all features.
+		Except:
+		FTP server => FTP service,FTP extensibility
+		world-wide-service => Application-development-Feature => CGI
+		world-wide-service => Security => URL Authorization, IP Security
+		
 	(iii)open iis manager.
 	(iv)download url Rewrite and install it . 
 	(v)to check iisnode 
@@ -52,7 +57,7 @@ Deployment:
 		cd "C:\Program Files"
 		cd iisnode
 		setupsamples.bat
-	(vi)copy your project in ==> C:\inetpub\    
+	(vi)copy your project in ==> C:\inetpub\    give al permission to user for this folder, and also add your user is iis_USERS and give all permissions.  
 	(vii) open iis manager and from left panel right click on sites and add new site
 	     	
 		fill site name physical location and host name 
